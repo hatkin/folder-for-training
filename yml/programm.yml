@@ -1,0 +1,40 @@
+---
+- name: Установка Программ
+  hosts: all
+  become: yes  # Используйте привилегии суперпользователя при необходимости
+  tasks:
+    - name: Обновление списка пакетов
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Установка Git
+      apt:
+        name: git
+        state: present
+
+    - name: Установка NGINX
+      apt:
+        name: nginx
+        state: present
+
+    - name: Установка PHP и необходимых расширений
+      apt:
+        name: 
+          - php
+          - php-fpm
+          - php-mysql
+        state: present
+
+    - name: Установка MySQL
+      apt:
+        name:
+            - mysql-server
+            - python3-pymysql
+        state: present
+
+    - name: Запуск и включение MySQL
+      service:
+        name: mysql
+        state: started
+        enabled: yes
